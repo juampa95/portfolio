@@ -1,0 +1,38 @@
+name: GitHub Metrics
+
+on:
+  schedule:
+    - cron: '0 6 * * *' # todos los días 06:00 UTC
+  workflow_dispatch: {} # permite correrla a mano desde la pestaña Actions
+
+permissions:
+  contents: read
+  id-token: write # necesario para Workload Identity Federation
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci --omit=dev
+
+      # Autenticación a GCP sin llaves (tokens de corta duración)
+      - id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WIF_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Recolectar y guardar métricas
+        run: node scripts/collect-metrics.mjs
+        env:
+          GH_METRICS_TOKEN: ${{ secrets.GH_METRICS_TOKEN }}
+          GOOGLE_CLOUD_PROJECT: ${{ secrets.GCP_PROJECT_ID }}
+          FIRESTORE_ENABLED: 'true'
+          GH_PUBLIC_ORGS: ${{ vars.GH_PUBLIC_ORGS }} # opcional: orgs a mostrar con nombre real
