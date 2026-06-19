@@ -71,9 +71,15 @@ async function fetchGitHub() {
 
 function buildHeatmap(calendar) {
   const level = (c) => (c === 0 ? 0 : c < 3 ? 1 : c < 6 ? 2 : c < 10 ? 3 : 4)
-  const weeks = calendar.weeks.map((w) =>
-    w.contributionDays.map((d) => ({ date: d.date, count: d.contributionCount, level: level(d.contributionCount) })),
-  )
+  // Firestore NO permite arrays directamente anidados. Cada semana va envuelta en
+  // un objeto { days: [...] } (array de objetos sí está permitido).
+  const weeks = calendar.weeks.map((w) => ({
+    days: w.contributionDays.map((d) => ({
+      date: d.date,
+      count: d.contributionCount,
+      level: level(d.contributionCount),
+    })),
+  }))
   return { weeks, total: calendar.totalContributions }
 }
 

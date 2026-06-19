@@ -14,7 +14,9 @@ function buildSampleHeatmap() {
       const level = count === 0 ? 0 : count < 3 ? 1 : count < 6 ? 2 : count < 10 ? 3 : 4
       week.push({ date: date.toISOString().slice(0, 10), count, level })
     }
-    weeks.push(week)
+    // Mismo shape que el real: cada semana es { days: [...] } (Firestore no
+    // permite arrays anidados).
+    weeks.push({ days: week })
   }
   return { weeks, total: 1842 }
 }

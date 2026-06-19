@@ -33,7 +33,7 @@ function Heatmap({ heatmap }) {
       <div className="hm-scroll">
         <svg className="hm-svg" width={width} height={height} role="img" aria-label="Heatmap de contribuciones">
           {heatmap.weeks.map((week, wi) =>
-            week.map((day, di) => (
+            week.days.map((day, di) => (
               <rect
                 key={`${wi}-${di}`}
                 className="hm-cell"
