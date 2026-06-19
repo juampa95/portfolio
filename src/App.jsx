@@ -8,10 +8,26 @@ import './App.css'
 import './components/components.css'
 
 const PROJECTS = [
-  { title: 'Proyecto Uno', tag: 'Web · WebGL', desc: 'Experimento visual con shaders y scroll.' },
-  { title: 'Proyecto Dos', tag: 'API · Cloud Run', desc: 'Backend serverless escalando a cero.' },
-  { title: 'Proyecto Tres', tag: 'UI · Motion', desc: 'Microinteracciones con anime.js v4.' },
-  { title: 'Proyecto Cuatro', tag: 'Data · Viz', desc: 'Dashboard animado en tiempo real.' },
+  {
+    title: 'Scoring de colaboradores',
+    tag: 'Data · Apache Airflow',
+    desc: 'Pipeline orquestado con Airflow sobre fuentes heterogéneas. −80% en tiempos de ejecución; resultados en BigQuery y Power BI.',
+  },
+  {
+    title: 'Agente AI (RAG)',
+    tag: 'AI · N8N · pgvector',
+    desc: 'RAG contextualizado a la lógica de negocio: entrenamiento automático con PDFs, base vectorial en pgvector y chatbot interno. Desplegado en GCP.',
+  },
+  {
+    title: 'Migración a microservicios',
+    tag: 'Backend · Docker · FastAPI',
+    desc: 'Webapp interna migrada a microservicios con Docker Compose y procesos asíncronos. −90% en tiempos de espera.',
+  },
+  {
+    title: 'Hub interno de herramientas',
+    tag: 'Full-stack · Flask · GCP',
+    desc: 'Centraliza dashboards de Power BI y ejecución on-demand de automatizaciones (Jobs en Cloud Run), con autenticación en Firestore.',
+  },
 ]
 
 // Divide un texto en <span> por caracter para animarlos con stagger
@@ -125,10 +141,11 @@ export default function App() {
 
         <div className="hero-inner">
           <h1>
-            <SplitText text="Hola, soy JP" className="line" />
+            <SplitText text="Hola, soy Juan Pablo" className="line" />
           </h1>
           <p className="subtitle">
-            Desarrollador · construyo cosas raras y animadas en la web.
+            Ingeniero Industrial &amp; Data Engineer · convierto datos en pipelines,
+            automatizaciones y decisiones.
           </p>
           <a className="cta" href="#proyectos">
             Ver proyectos ↓
@@ -140,8 +157,13 @@ export default function App() {
       <section className="about reveal">
         <h2>Sobre mí</h2>
         <p>
-          Experimento con motion, WebGL y arquitecturas serverless. Este sitio
-          corre en Cloud Run y escala a cero cuando nadie lo mira.
+          Soy Juan Pablo Manzano. Transformo datos en soluciones estratégicas: diseño
+          pipelines escalables (Python, SQL, Apache Airflow, N8N), automatizo y orquesto
+          procesos, y los despliego en GCP. Me muevo entre la ingeniería industrial y la de
+          datos, con foco en eficiencia y decisiones basadas en datos.
+        </p>
+        <p>
+          Detalle nerd: este mismo sitio corre en Cloud Run y escala a cero cuando nadie lo mira.
         </p>
       </section>
 
@@ -160,7 +182,7 @@ export default function App() {
 
       <section className="github reveal">
         <h2>Actividad en GitHub</h2>
-        <p className="section-lead">Stats y repos en vivo desde la GitHub API.</p>
+        <p className="section-lead">Snapshot diario de mi actividad real en GitHub.</p>
         <GitHubDashboard />
       </section>
 
