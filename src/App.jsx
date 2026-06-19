@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { animate, stagger, createTimeline, onScroll, utils } from 'animejs'
-import Chatbot from './components/Chatbot.jsx'
+import CommandPalette from './components/CommandPalette.jsx'
 import Guestbook from './components/Guestbook.jsx'
 import GitHubDashboard from './components/GitHubDashboard.jsx'
 import VisitCounter from './components/VisitCounter.jsx'
@@ -177,7 +177,7 @@ export default function App() {
         </p>
       </footer>
 
-      <Chatbot />
+      <CommandPalette />
     </main>
   )
 }
