@@ -1,4 +1,7 @@
 import { Router } from 'express'
+import { readFileSync } from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { GoogleGenAI } from '@google/genai'
 import { getMetrics } from '../store.js'
 
@@ -7,6 +10,16 @@ const router = Router()
 const apiKey = process.env.GEMINI_API_KEY
 const model = process.env.GEMINI_MODEL || 'gemini-2.5-flash'
 const ai = apiKey ? new GoogleGenAI({ apiKey }) : null
+
+// Perfil de JP como fuente de contexto del chatbot. JP lo mantiene editando
+// content/perfil.md (se lee al arrancar; un redeploy toma los cambios).
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+let perfil = ''
+try {
+  perfil = readFileSync(path.join(__dirname, '..', '..', 'content', 'perfil.md'), 'utf8')
+} catch {
+  perfil = '' // sin perfil, el bot responde solo con las métricas de GitHub
+}
 
 // Construye el system prompt incluyendo datos reales de GitHub + el "catálogo"
 // A2UI que la LLM puede usar para generar UI nativa (no solo texto).
@@ -24,10 +37,16 @@ function buildSystemPrompt(m) {
 - Contribuciones por mes: ${months}`
   }
 
-  return `Sos el asistente del portfolio de JP, un desarrollador full-stack al que le gustan
-el frontend con animaciones y el backend serverless. Respondés en español, tono cercano y conciso.
+  return `Sos el asistente del portfolio de Juan Pablo Manzano (JP), Ingeniero Industrial y
+Data Engineer. Respondés preguntas de visitantes (reclutadores, colegas) sobre su perfil,
+experiencia, proyectos y skills. Tono cercano, profesional y conciso, en español.
+Si te preguntan algo que NO está en la info de abajo, decí con honestidad que no lo sabés con
+certeza y sugerí contactarlo por email o LinkedIn. No inventes datos.
 
-DATOS REALES:
+=== PERFIL DE JP (fuente: su CV, lo mantiene él) ===
+${perfil || 'Perfil no disponible por ahora.'}
+
+=== MÉTRICAS DE GITHUB (último año, datos reales ya anonimizados) ===
 ${ghContext}
 
 FORMATO DE RESPUESTA — devolvés SIEMPRE un JSON con esta forma:

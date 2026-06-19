@@ -19,8 +19,9 @@ ENV NODE_ENV=production
 COPY package*.json ./
 RUN npm ci --omit=dev
 
-# Server y build estático
+# Server, contenido (perfil del chatbot) y build estático
 COPY server ./server
+COPY content ./content
 COPY --from=build /app/dist ./dist
 
 EXPOSE 8080
