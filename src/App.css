@@ -8,33 +8,45 @@ section {
   margin: 0 auto;
 }
 
-/* ---------- HERO ---------- */
-.hero {
+/* ---------- HERO (scrollytelling: cara dividida) ---------- */
+.hero-scroll {
   position: relative;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
   max-width: none;
+  margin: 0;
+  padding: 0;
+  height: 340vh; /* distancia de scroll para la coreografía */
+}
+.hero-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
   overflow: hidden;
 }
 
-.hero-inner {
-  position: relative;
-  z-index: 2;
-  will-change: transform;
+/* Nombre + rol a la izquierda */
+.hero-text {
+  position: absolute;
+  left: clamp(1.5rem, 7vw, 7rem);
+  top: 50%;
+  z-index: 3;
+  max-width: min(46%, 540px);
+  transform: translateY(calc(-50% + var(--ty, 0px)));
+  will-change: transform, opacity;
 }
-
-.hero h1 {
-  font-size: clamp(2.5rem, 9vw, 7rem);
+.hero-eyebrow {
+  font-size: 1rem;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  opacity: 0;
+}
+.hero-name {
+  font-size: clamp(2.4rem, 6.5vw, 5rem);
   font-weight: 800;
   letter-spacing: -0.03em;
-  line-height: 1;
+  line-height: 1.02;
+  margin: 0.3rem 0 0.8rem;
 }
-
-.hero .char {
+.hero-name .char {
   display: inline-block;
   will-change: transform, opacity;
   background: linear-gradient(120deg, var(--accent-3), var(--accent), var(--accent-2));
@@ -42,64 +54,215 @@ section {
   background-clip: text;
   color: transparent;
 }
-
-.subtitle {
-  margin-top: 1.5rem;
-  font-size: clamp(1rem, 2.5vw, 1.4rem);
-  color: var(--muted);
+.hero-role {
+  font-size: clamp(1.05rem, 2.2vw, 1.4rem);
+  font-weight: 600;
+  color: var(--accent-3);
   opacity: 0;
 }
-
-.cta {
+.hero-phrase {
+  margin-top: 0.9rem;
+  font-size: clamp(0.98rem, 1.6vw, 1.15rem);
+  color: var(--muted);
+  line-height: 1.6;
+  opacity: 0;
+}
+.hero-cta {
   display: inline-block;
-  margin-top: 2.5rem;
-  padding: 0.9rem 1.8rem;
+  margin-top: 1.8rem;
+  padding: 0.8rem 1.6rem;
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 999px;
   font-weight: 600;
   opacity: 0;
   transition: background 0.3s, border-color 0.3s, transform 0.3s;
 }
-.cta:hover {
+.hero-cta:hover {
   background: var(--accent);
   border-color: var(--accent);
   transform: translateY(-2px);
 }
 
+/* Cara dividida — placeholder = círculo bicolor partido al medio.
+   Reemplazar por la imagen real (corte en el centro). */
+.hero-face {
+  position: absolute;
+  left: 72%;
+  top: 50%;
+  z-index: 2;
+  width: clamp(220px, 32vw, 420px);
+  height: clamp(220px, 32vw, 420px);
+  transform: translate(calc(-50% + var(--fx, 0px)), -50%) scale(var(--fs, 1));
+  will-change: transform;
+}
+.face-half {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  will-change: opacity, transform;
+}
+.face-eng {
+  /* mitad izquierda: ingeniería / desarrollo */
+  clip-path: inset(0 50% 0 0);
+  background: radial-gradient(circle at 65% 40%, #7c83ff, #3b2fae 72%);
+  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.35);
+}
+.face-cre {
+  /* mitad derecha: creatividad / resolución */
+  clip-path: inset(0 0 0 50%);
+  background: radial-gradient(circle at 35% 40%, #ff8bc0, #d94f8e 72%);
+  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.25);
+  transform: translateX(var(--cx, 0px));
+}
+.face-divider {
+  position: absolute;
+  left: 50%;
+  top: 7%;
+  bottom: 7%;
+  width: 2px;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: 2px;
+}
+
+/* Cualidades de cada faceta */
+.hero-traits {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  opacity: 0;
+  will-change: transform, opacity;
+  font-size: clamp(1rem, 1.8vw, 1.5rem);
+  font-weight: 600;
+}
+.hero-traits .traits-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.4rem;
+}
+.hero-traits-eng {
+  left: 50%;
+  text-align: center;
+  transform: translate(calc(-50% + var(--tx, -28px)), -50%);
+  color: #aeb4ff;
+}
+.hero-traits-eng .traits-label {
+  color: #7c83ff;
+}
+.hero-traits-cre {
+  left: 50%;
+  text-align: center;
+  transform: translate(calc(-50% + var(--tx, 28px)), -50%);
+  color: #ffb0d4;
+}
+.hero-traits-cre .traits-label {
+  color: #ff8bc0;
+}
+
 .scroll-hint {
   position: absolute;
   bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
   font-size: 0.8rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--muted);
-  animation: bob 2s ease-in-out infinite;
-}
-@keyframes bob {
-  0%, 100% { transform: translateY(0); opacity: 0.5; }
-  50% { transform: translateY(8px); opacity: 1; }
 }
 
-/* ---------- BLOBS ---------- */
-.blobs {
+/* Layout estático (reduced-motion / mobile): sin pin ni scroll-jacking */
+.hero-scroll.is-static {
+  height: auto;
+}
+.hero-scroll.is-static .hero-stage {
+  position: static;
+  height: auto;
+  overflow: visible;
+  padding: 6rem 1.5rem 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2rem;
+}
+.is-static .hero-text,
+.is-static .hero-face,
+.is-static .hero-traits {
+  position: static;
+  transform: none;
+  max-width: 100%;
+}
+.is-static .hero-eyebrow,
+.is-static .hero-role,
+.is-static .hero-phrase,
+.is-static .hero-cta {
+  opacity: 1;
+}
+.is-static .hero-face {
+  margin: 0 auto;
+}
+.is-static .face-cre {
+  transform: none;
+}
+.is-static .hero-traits {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1.4rem;
+  text-align: center;
+  font-size: 1rem;
+}
+.is-static .scroll-hint {
+  display: none;
+}
+
+/* ---------- FONDO del hero (2 facetas, se mueve con el scroll) ---------- */
+.hero-bg {
   position: absolute;
   inset: 0;
-  z-index: 1;
-  filter: blur(60px);
-  opacity: 0.55;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
 }
-.blob {
+.bg-layer {
   position: absolute;
-  width: 40vw;
-  height: 40vw;
-  max-width: 520px;
-  max-height: 520px;
-  border-radius: 50%;
-  will-change: transform;
+  inset: -12%;
+  will-change: transform, opacity;
 }
-.b1 { top: 10%; left: 10%; background: var(--accent); }
-.b2 { top: 30%; right: 5%; background: var(--accent-2); }
-.b3 { bottom: 5%; left: 35%; background: var(--accent-3); }
+/* Faceta ingenieril: grilla tipo blueprint + glow frío a la derecha */
+.bg-eng {
+  background-color: transparent;
+  background-image:
+    linear-gradient(rgba(124, 131, 255, 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124, 131, 255, 0.16) 1px, transparent 1px),
+    radial-gradient(60% 60% at 76% 46%, rgba(59, 47, 174, 0.5), transparent 70%);
+  background-size: 48px 48px, 48px 48px, 100% 100%;
+  background-position:
+    var(--gx, 0px) var(--gy, 0px),
+    var(--gx, 0px) var(--gy, 0px),
+    0 0;
+  transform: translateX(var(--bx, 0px));
+}
+/* Faceta creativa: auroras orgánicas cálidas */
+.bg-cre {
+  opacity: 0;
+  background-image:
+    radial-gradient(38% 48% at 22% 32%, rgba(255, 93, 158, 0.5), transparent 70%),
+    radial-gradient(42% 52% at 78% 68%, rgba(93, 220, 255, 0.42), transparent 72%),
+    radial-gradient(36% 46% at 60% 22%, rgba(217, 79, 142, 0.4), transparent 70%);
+  filter: blur(40px);
+  transform: translateX(var(--bx, 0px));
+}
 
 /* ---------- SECCIONES ---------- */
 .reveal { opacity: 0; }
@@ -110,45 +273,28 @@ h2 {
   letter-spacing: -0.02em;
 }
 
+.about {
+  max-width: 1040px;
+  text-align: center;
+}
 .about p {
   font-size: 1.2rem;
   color: var(--muted);
-  max-width: 60ch;
+  max-width: 80ch;
+  margin: 0 auto 1.1rem;
   line-height: 1.7;
 }
-
-/* ---------- PROYECTOS ---------- */
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.5rem;
+.about p:last-child {
+  margin-bottom: 0;
 }
-.card {
-  opacity: 0;
-  padding: 1.8rem;
-  border-radius: 18px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: transform 0.3s, border-color 0.3s;
-  will-change: transform, opacity;
-}
-.card:hover {
-  transform: translateY(-6px);
-  border-color: var(--accent);
-}
-.card-tag {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+.about strong {
   color: var(--accent-3);
+  font-weight: 700;
 }
-.card h3 {
-  margin: 0.6rem 0;
-  font-size: 1.3rem;
-}
-.card p {
-  color: var(--muted);
-  line-height: 1.6;
+
+/* La trayectoria respira más ancho que el resto de secciones */
+.trajectory-section {
+  max-width: 1280px;
 }
 
 .section-lead {
@@ -169,85 +315,251 @@ footer {
   margin-top: 0.8rem;
 }
 
-/* ---------- TIMELINE (Trayectoria) ---------- */
-.timeline {
-  position: relative;
-  max-width: 720px;
-  margin: 2.5rem auto 0;
-  padding-left: 2rem;
+/* ---------- TRAYECTORIA (eje de años compartido + master-detail) ---------- */
+.trajectory {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 360px);
+  gap: 2.5rem;
+  align-items: start;
+  margin-top: 2.5rem;
 }
-.tl-line {
-  position: absolute;
-  left: 6px;
-  top: 10px;
-  height: calc(100% - 20px);
+.tj-main {
+  min-width: 0;
+}
+
+/* Encabezados (alineados a las columnas del grid): grupo grande + sublabel por pista */
+.tj-heads {
+  display: grid;
+  column-gap: 1rem;
+  row-gap: 0.45rem;
+  margin-bottom: 1rem;
+  align-items: end;
+}
+.tj-group-head {
+  font-size: clamp(1rem, 1.6vw, 1.35rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: var(--track-accent, var(--text, #e8e8f0));
+  align-self: end;
+}
+/* Grupo (varias ramas): subrayado tenue para indicar que abarca las columnas */
+.tj-group-head.is-group {
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+.tj-sub-head {
+  min-height: 1rem;
+  font-size: 0.64rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-align: center;
+  color: var(--track-accent, var(--accent));
+}
+
+/* Grid principal: gutter de años + una columna por pista, alineadas por año */
+.tj-grid {
+  position: relative;
+  display: grid;
+  column-gap: 1rem;
+  row-gap: 2.2rem;
+  align-items: start;
+}
+
+/* Eje temporal (línea punteada en el gutter de años) */
+.tj-axis {
   width: 2px;
-  border-radius: 2px;
-  background: linear-gradient(180deg, var(--accent-3), var(--accent), var(--accent-2));
+  justify-self: end;
+  margin-right: 0.4rem;
+  background-image: repeating-linear-gradient(
+    180deg,
+    var(--muted) 0 5px,
+    transparent 5px 11px
+  );
+  opacity: 0.4;
   transform: scaleY(0);
   transform-origin: top center;
 }
-.tl-item {
+/* Rieles de cada pista, detrás de las cards */
+.tj-rail {
+  justify-self: start;
+  margin-left: 5px;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(
+    180deg,
+    var(--track-accent, var(--accent)),
+    color-mix(in srgb, var(--track-accent, var(--accent)) 15%, transparent)
+  );
+  opacity: 0.55;
+  transform: scaleY(0);
+  transform-origin: top center;
+}
+
+/* Años grandes a la izquierda */
+.tj-year {
+  align-self: start;
+  padding-top: 0.1rem;
+}
+.tj-year-num {
+  font-size: clamp(1.4rem, 2.4vw, 2.1rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(120deg, var(--accent-3), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Celda (año × pista): apila los proyectos de ese año en esa pista */
+.tj-cell {
+  min-width: 0;
+  padding-left: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+/* Cards mínimas (botones) */
+.tj-node {
   position: relative;
   opacity: 0;
-  padding-bottom: 1.6rem;
-}
-.tl-item:last-child {
-  padding-bottom: 0;
-}
-.tl-dot {
-  position: absolute;
-  left: -2rem;
-  top: 7px;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--accent);
-  border: 3px solid var(--bg);
-  box-shadow: 0 0 0 2px var(--accent), 0 0 12px rgba(109, 93, 252, 0.6);
-  transform: scale(0);
-}
-.tl-card {
+  display: block;
+  width: 100%;
+  text-align: left;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 14px;
-  padding: 1rem 1.2rem;
-  transition: border-color 0.25s, transform 0.25s;
+  border-radius: 12px;
+  padding: 0.65rem 0.85rem;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s, background 0.2s;
+  will-change: transform, opacity;
 }
-.tl-card:hover {
-  border-color: var(--accent-3);
-  transform: translateX(4px);
+.tj-node:hover {
+  transform: translateX(3px);
+  border-color: color-mix(in srgb, var(--track-accent, var(--accent)) 55%, transparent);
 }
-.tl-date {
-  font-size: 0.78rem;
+.tj-node.is-active {
+  border-color: var(--track-accent, var(--accent));
+  background: color-mix(in srgb, var(--track-accent, var(--accent)) 12%, transparent);
+}
+.tj-dot {
+  position: absolute;
+  left: -1.15rem;
+  top: 0.95rem;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--track-accent, var(--accent));
+  border: 3px solid var(--bg);
+  box-shadow: 0 0 0 2px var(--track-accent, var(--accent));
+  transition: box-shadow 0.2s;
+}
+.tj-node.is-active .tj-dot {
+  box-shadow: 0 0 0 2px var(--track-accent, var(--accent)),
+    0 0 12px color-mix(in srgb, var(--track-accent, var(--accent)) 70%, transparent);
+}
+.tj-period {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
   font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--track-accent, var(--accent));
+}
+.tj-live {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #36d399;
+  box-shadow: 0 0 0 0 rgba(54, 211, 153, 0.6);
+  animation: tj-pulse 1.8s infinite;
+}
+@keyframes tj-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(54, 211, 153, 0.5); }
+  70% { box-shadow: 0 0 0 6px rgba(54, 211, 153, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(54, 211, 153, 0); }
+}
+.tj-node-title {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-top: 0.2rem;
+  line-height: 1.25;
+}
+.tj-node-org {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 0.15rem;
+}
+
+/* --- Derecha: panel de detalle sticky --- */
+.tj-detail {
+  position: sticky;
+  top: 2rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  padding: 1.8rem;
+}
+.tj-detail-period {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
   color: var(--accent-3);
-  letter-spacing: 0.04em;
 }
-.tl-title {
-  font-size: 1.1rem;
-  margin: 0.2rem 0 0.1rem;
+.tj-detail-period em {
+  font-style: normal;
+  color: var(--muted);
+  font-weight: 500;
 }
-.tl-org {
-  font-size: 0.82rem;
+.tj-detail-title {
+  font-size: 1.4rem;
+  margin: 0.4rem 0 0.2rem;
+  line-height: 1.2;
+}
+.tj-detail-org {
+  display: block;
+  font-size: 0.9rem;
   color: var(--muted);
 }
-.tl-desc {
-  font-size: 0.92rem;
-  line-height: 1.5;
-  margin-top: 0.6rem;
+.tj-detail-desc {
+  margin-top: 1rem;
+  line-height: 1.65;
+  color: var(--text, #e8e8f0);
 }
-.tl-tags {
+.tj-detail-stack {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-top: 0.7rem;
+  gap: 0.45rem;
+  margin-top: 1.2rem;
 }
-.tl-tag {
+.tj-chip {
   font-size: 0.72rem;
-  padding: 0.2rem 0.6rem;
+  padding: 0.25rem 0.65rem;
   border-radius: 999px;
   background: rgba(109, 93, 252, 0.15);
   border: 1px solid rgba(109, 93, 252, 0.3);
   color: var(--accent-3);
+}
+
+@media (max-width: 979px) {
+  .trajectory {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .tj-detail {
+    position: static;
+  }
+  .tj-main {
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+  .tj-heads,
+  .tj-grid {
+    min-width: 680px;
+  }
 }

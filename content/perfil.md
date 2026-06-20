@@ -41,22 +41,22 @@ Consultoría de datos. Trabajo en la plataforma de datos interna y en proyectos 
   procesos comerciales: leads y deals) y tablas de BigQuery del data warehouse.
   *Stack: FastMCP (Python), BigQuery, Cloud Run Jobs, Secret Manager (GCP), OAuth.*
 
-- **Sistema de scoring interno de colaboradores** · 04-2025 → presente
+- **Sistema de scoring interno de colaboradores** · 04-2025 → 12-2025
   Diseño, desarrollo y mantenimiento sobre fuentes heterogéneas, orquestado con Apache
   Airflow. −80% en tiempos de ejecución y trazabilidad. Resultados en BigQuery para Power BI.
   *Stack: Python, SQL, Apache Airflow, BigQuery, APIs REST, Notion, SharePoint, Power BI.*
 
-- **Webapp interna (hub de herramientas + automatizaciones)** · 04-2025 → presente
+- **Webapp interna (hub de herramientas + automatizaciones)** · 04-2025 → 06-2025
   Centraliza herramientas corporativas, dashboards de Power BI embebidos con filtros dinámicos
   por usuario y ejecución on-demand de automatizaciones (Jobs en Cloud Run), con auth en Firestore.
   *Stack: Python (Flask), HTML, CSS, JavaScript, Bootstrap, Firestore, Power BI Embedding.*
 
-- **Agente AI (RAG) contextualizado a la lógica de negocio** · 07-2025 → presente
+- **Agente AI (RAG) contextualizado a la lógica de negocio** · 07-2025 → 12-2025
   RAG en N8N con entrenamiento automático desde PDFs de SharePoint y base de contexto dinámica;
   chatbot interno. Orquestado con Docker Compose y desplegado en GCP (VM).
   *Stack: JavaScript, PostgreSQL (pgvector), N8N, API OpenAI, Notion, SharePoint, GCP, VM.*
 
-- **Optimización y migración de apps internas a microservicios** · 08-2025 → presente
+- **Optimización y migración de apps internas a microservicios** · 08-2025 → 10-2025
   Migración de una webapp a microservicios con Docker Compose y procesos asíncronos
   (on-demand y periódicos). −90% en tiempos de espera.
   *Stack: Docker, GCP, VM, PostgreSQL, Webhooks, Python, FastAPI.*
@@ -88,7 +88,7 @@ Consultoría de datos. Trabajo en la plataforma de datos interna y en proyectos 
   *Stack: Python, SQL, Power BI.*
 
 - **Extracción y procesamiento paralelizado (segmentación de clientes)** · 05-2025
-  Extracción desde múltiples bases del cliente y carga en streaming a BigQuery desde una VM
+  Extracción desde múltiples bases del cliente (Hana SAP, Azure) y carga en streaming a BigQuery desde una VM
   dedicada, con procesamiento por lotes y paralelización.
   *Stack: Python, SQL, BigQuery (streaming), VMs, procesamiento paralelo.*
 
